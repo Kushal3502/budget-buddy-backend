@@ -1,11 +1,11 @@
 import jwt from "jsonwebtoken";
 
-const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET!;
-const refreshTokenSecret = process.env.REFRESH_TOKEN_SECRET!;
+const accessTokenSecret = String(process.env.ACCESS_TOKEN_SECRET);
+const refreshTokenSecret = String(process.env.REFRESH_TOKEN_SECRET);
 
 export function generateAccessToken(userId: string) {
   return jwt.sign({ userId }, accessTokenSecret, {
-    expiresIn: "1d",
+    expiresIn: "15m",
   });
 }
 

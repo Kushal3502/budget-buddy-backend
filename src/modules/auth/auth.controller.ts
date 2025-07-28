@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { login, logout, register, me } from "./auth.service";
 import ApiResponse from "../../utils/apiResponse";
 import { generateAccessToken } from "../../utils/jwt";
+import { createNewToken, login, logout, me, register } from "./auth.service";
 
 export async function handleRegister(req: Request, res: Response) {
   const { name, email, age, password } = req.body;
@@ -73,16 +73,22 @@ export async function handleLogout(req: Request, res: Response) {
 }
 
 export async function refreshAccessToken(req: Request, res: Response) {
-  const id = req?.user;
+  const token = req?.cookies?.refreshToken;
 
-  if (!id) {
-    return res
-      .status(400)
-      .json(new ApiResponse(400, "User not authenticated!"));
+  if (!token) {
+    return res.status(401).json(new ApiResponse(401, "Refresh token missing!"));
   }
 
   try {
-    const accessToken = generateAccessToken(id);
+    const user = await createNewToken(token);
+
+    if (!user || user.refreshToken !== token) {
+      return res
+        .status(403)
+        .json(new ApiResponse(403, "Invalid refresh token"));
+    }
+
+    const accessToken = generateAccessToken(user.id);
 
     return res
       .status(201)

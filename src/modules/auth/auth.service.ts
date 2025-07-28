@@ -1,6 +1,10 @@
 import bcrypt from "bcryptjs";
 import { prisma } from "../../config/db";
-import { generateAccessToken, generateRefreshToken } from "../../utils/jwt";
+import {
+  generateAccessToken,
+  generateRefreshToken,
+  verifyRefreshToken,
+} from "../../utils/jwt";
 
 export async function register(
   name: string,
@@ -67,11 +71,26 @@ export async function login(email: string, password: string) {
 }
 
 export async function logout(id: string) {
-  // set refreshtoken null
+  const user = await prisma.user.findUnique({ where: { id } });
+
+  if (!user) throw new Error("User not found");
+
   await prisma.user.update({
     where: { id },
     data: { refreshToken: null },
   });
+}
+
+export async function createNewToken(token: string) {
+  const decoded = verifyRefreshToken(token);
+
+  const user = await prisma.user.findUnique({
+    where: {
+      id: decoded.userId,
+    },
+  });
+
+  return user;
 }
 
 export async function me(id: string) {
