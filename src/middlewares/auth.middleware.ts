@@ -33,6 +33,8 @@ export async function authMiddleware(
     next();
   } catch (error: any) {
     console.log("Auth middleware error :: ", error.message);
-    return res.status(500).json(new ApiResponse(500, "Internal server error"));
+    return res
+      .status(500)
+      .json(new ApiResponse(500, error.message || "Internal server error"));
   }
 }

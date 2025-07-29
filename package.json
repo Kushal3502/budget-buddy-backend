@@ -11,7 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@prisma/client": "^6.12.0",
+    "@prisma/client": "^6.13.0",
     "@types/bcryptjs": "^2.4.6",
     "@types/cookie-parser": "^1.4.9",
     "bcryptjs": "^3.0.2",
@@ -20,7 +20,6 @@
     "dotenv": "^17.2.1",
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
-    "prisma": "^6.12.0",
     "zod": "^4.0.10"
   },
   "devDependencies": {
@@ -29,7 +28,7 @@
     "@types/jsonwebtoken": "^9.0.9",
     "@types/node": "^22.15.17",
     "nodemon": "^3.1.10",
-    "prisma": "^6.8.2",
+    "prisma": "^6.13.0",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.8.3"
   }

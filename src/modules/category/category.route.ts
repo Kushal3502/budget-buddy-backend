@@ -8,6 +8,8 @@ import { authMiddleware } from "../../middlewares/auth.middleware";
 
 export const categoryRoutes = Router();
 
-categoryRoutes.get("/", authMiddleware, fetchAllCategories);
-categoryRoutes.post("/", authMiddleware, handleCreateCategory);
-categoryRoutes.delete("/:id", authMiddleware, handleDeleteCategory);
+categoryRoutes.use(authMiddleware);
+
+categoryRoutes.get("/", fetchAllCategories);
+categoryRoutes.post("/", handleCreateCategory);
+categoryRoutes.delete("/:id", handleDeleteCategory);
