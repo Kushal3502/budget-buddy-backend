@@ -4,6 +4,7 @@ import { authRoutes } from "./modules/auth/auth.route";
 import cookieParser from "cookie-parser";
 import { categoryRoutes } from "./modules/category/category.route";
 import { expenseRoutes } from "./modules/expenses/expense.route";
+import { dashboardRoutes } from "./modules/dashboard/dashboard.route";
 
 const app = express();
 
@@ -26,5 +27,6 @@ app.get("/", (req, res) => {
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/categories", categoryRoutes);
 app.use("/api/v1/expenses", expenseRoutes);
+app.use("/api/v1/dashboard", dashboardRoutes);
 
 export default app;

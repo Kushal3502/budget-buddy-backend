@@ -22,7 +22,9 @@ export async function handleAddExpense(req: Request, res: Response) {
     if (!data)
       return res.status(400).json(new ApiResponse(400, "Category not found!"));
 
-    return res.status(201).json(new ApiResponse(201, "New expense added!"));
+    return res
+      .status(201)
+      .json(new ApiResponse(201, "New expense added!", data));
   } catch (error: any) {
     console.log("Add expense error :: ", error.message);
     return res.status(500).json(new ApiResponse(500, error.message));
